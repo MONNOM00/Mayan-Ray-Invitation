@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marianne &amp; Ray | Wedding RSVP</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,600;1,600;1,700&display=swap');
+
+  :root{
+    --gold: #a8842f;
+    --gold-deep: #8c6b1f;
+    --gold-soft: #d9c184;
+    --ink: #1c1a17;
+    --paper: #ffffff;
+    --paper-warm: #fdfcf9;
+    --line: #e9e2cf;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin:0;
+    padding:0;
+    background: #f3efe4;
+    color: var(--ink);
+    font-family: 'Montserrat', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .stage{
+    min-height: 100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 28px 14px;
+  }
+
+  .card{
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    background: var(--paper);
+    padding: 3px;
+  }
+
+  .card::before{
+    content:"";
+    position:absolute;
+    inset: 10px;
+    border: 1px solid var(--gold-soft);
+    pointer-events:none;
+  }
+
+  .card-inner{
+    position:relative;
+    border: 2.5px solid var(--gold);
+    padding: 40px 30px 34px;
+    background: var(--paper);
+    min-height: 480px;
+    display:flex;
+    flex-direction:column;
+  }
+
+  .ornament{
+    text-align:center;
+    color: var(--gold);
+    font-size: 15px;
+    letter-spacing: 6px;
+    margin-bottom: 18px;
+  }
+
+  .eyebrow{
+    text-align:center;
+    font-family:'Montserrat', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    font-size: 13px;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin: 0 0 6px;
+  }
+
+  .script-heading{
+    text-align:center;
+    font-family: 'Cinzel', serif;
+    font-style: normal;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .script-heading.small{
+    font-size: 16px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .script-heading.big{
+    font-size: 34px;
+    letter-spacing: 2px;
+    margin-bottom: 22px;
+  }
+
+  .divider{
+    width: 64px;
+    height: 1px;
+    background: var(--gold-soft);
+    margin: 0 auto 22px;
+  }
+
+  .search-wrap{
+    margin-top: 34px;
+  }
+
+  .search-label{
+    text-align:center;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #6b6459;
+    margin-bottom: 12px;
+  }
+
+  input[type="text"], textarea{
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    border: 1.5px solid var(--line);
+    background: var(--paper-warm);
+    padding: 13px 14px;
+    font-size: 14.5px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color .15s ease;
+  }
+
+  input[type="text"]:focus, textarea:focus{
+    border-color: var(--gold);
+  }
+
+  .results{
+    margin-top: 10px;
+    max-height: 220px;
+    overflow-y: auto;
+  }
+
+  .result-item{
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    font-size: 14px;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    transition: background .12s ease;
+  }
+
+  .result-item:hover{
+    background: #faf6ea;
+  }
+
+  .result-item .tag{
+    font-size: 10px;
+    letter-spacing: .5px;
+    color: var(--gold-deep);
+    text-transform: uppercase;
+    white-space: nowrap;
+    margin-left: 10px;
+  }
+
+  .empty-note{
+    text-align:center;
+    font-size: 13px;
+    color: #8a8378;
+    margin-top: 16px;
+    line-height: 1.6;
+  }
+
+  .greeting{
+    text-align:center;
+    margin-bottom: 26px;
+  }
+
+  .greeting .dear{
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 28px;
+    line-height: 1.3;
+  }
+
+  .greeting .role-intro{
+    margin-top: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: .3px;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  .greeting .role{
+    margin-top: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 12.5px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .greeting .role.ps{
+    color: var(--gold-deep);
+  }
+
+  .greeting .invite-line{
+    margin-top: 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--ink);
+    padding: 0 6px;
+  }
+
+  .details{
+    font-size: 13.5px;
+    line-height: 1.85;
+    color: var(--ink);
+    margin-bottom: 26px;
+  }
+
+  .details .row{
+    display:flex;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 7px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+
+  .details .row:last-child{ border-bottom: none; }
+
+  .details .label{
+    font-weight: 700;
+    letter-spacing: .4px;
+    white-space: nowrap;
+  }
+
+  .details .value{
+    text-align: right;
+  }
+
+  .section-title{
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin: 0 0 12px;
+    text-align:center;
+  }
+
+  .rsvp-choices{
+    display:flex;
+    gap: 12px;
+    margin-bottom: 26px;
+  }
+
+  .choice-box{
+    flex:1;
+    border: 1.5px solid var(--line);
+    background: var(--paper-warm);
+    padding: 16px 8px;
+    text-align:center;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: .3px;
+    cursor: pointer;
+    transition: all .15s ease;
+    user-select: none;
+  }
+
+  .choice-box:hover{
+    border-color: var(--gold);
+    background: #faf6ea;
+    transform: translateY(-1px);
+  }
+
+  .choice-box.selected{
+    border-color: var(--gold);
+    background: var(--gold);
+    color: #fff;
+  }
+
+  .transport-note{
+    font-size: 11px;
+    color: #8a8378;
+    text-align:center;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+
+  .transport-choices{
+    display:flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 26px;
+  }
+
+  .transport-box{
+    border: 1.5px solid var(--line);
+    background: var(--paper-warm);
+    padding: 12px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .15s ease;
+    display:flex;
+    align-items:center;
+    gap: 10px;
+  }
+
+  .transport-box:hover{
+    border-color: var(--gold);
+    background: #faf6ea;
+  }
+
+  .transport-box.selected{
+    border-color: var(--gold);
+    background: #fbf3df;
+  }
+
+  .radio-dot{
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1.5px solid var(--gold-soft);
+    flex-shrink:0;
+    position:relative;
+  }
+
+  .transport-box.selected .radio-dot{
+    border-color: var(--gold);
+  }
+
+  .transport-box.selected .radio-dot::after{
+    content:"";
+    position:absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  .note-section{
+    margin-bottom: 26px;
+  }
+
+  textarea{
+    resize: vertical;
+    min-height: 80px;
+    font-size: 13.5px;
+  }
+
+  .submit-btn{
+    width: 100%;
+    padding: 15px;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-size: 12.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .15s ease;
+    margin-top: auto;
+  }
+
+  .submit-btn:hover:not(:disabled){
+    background: var(--gold-deep);
+  }
+
+  .submit-btn:disabled{
+    background: #c9c3b6;
+    cursor: not-allowed;
+  }
+
+  .back-link{
+    text-align:center;
+    margin-top: 16px;
+    font-size: 11.5px;
+    color: #8a8378;
+    cursor: pointer;
+    letter-spacing: .5px;
+  }
+
+  .back-link:hover{
+    color: var(--gold-deep);
+  }
+
+  .center-screen{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    flex: 1;
+    padding: 20px 0;
+  }
+
+  .center-screen .icon{
+    font-size: 30px;
+    color: var(--gold);
+    margin-bottom: 16px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+  }
+
+  .center-screen h2{
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 24px;
+    margin: 0 0 12px;
+  }
+
+  .center-screen p{
+    font-size: 13.5px;
+    line-height: 1.8;
+    color: var(--ink);
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .prev-answer{
+    margin-top: 18px;
+    padding: 12px 18px;
+    border: 1px dashed var(--gold-soft);
+    font-size: 12px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--gold-deep);
+  }
+
+  .error-text{
+    color: #a33d3d;
+    font-size: 11.5px;
+    text-align:center;
+    margin-top: -10px;
+    margin-bottom: 14px;
+    display:none;
+  }
+
+  ::-webkit-scrollbar{ width: 6px; }
+  ::-webkit-scrollbar-thumb{ background: var(--gold-soft); }
+
+  @media (max-width: 380px){
+    .card-inner{ padding: 32px 20px 28px; }
+    .script-heading.big{ font-size: 32px; }
+    .rsvp-choices{ flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="card">
+    <div class="card-inner" id="app">
+      <!-- content injected by JS -->
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+
+  var GUESTS = [{"id": 1, "name": "Nathaniel Subong", "role": null}, {"id": 2, "name": "Grace Subong", "role": null}, {"id": 3, "name": "Monica Grathea Subong", "role": "Maid of Honor"}, {"id": 4, "name": "Geraldine Quiñones", "role": null}, {"id": 5, "name": "Gina Alcoran", "role": null}, {"id": 6, "name": "Dennis Quiñones", "role": "Principal Sponsor"}, {"id": 7, "name": "Gemma Quiñones", "role": "Principal Sponsor"}, {"id": 8, "name": "Restituto Quiñones, Jr.", "role": null}, {"id": 9, "name": "Debra Quiñones", "role": null}, {"id": 10, "name": "Mariah Rionna Dominique Quiñones", "role": null}, {"id": 11, "name": "Ricardo Bebot Subong", "role": null}, {"id": 12, "name": "Maria Donna Alanes Almeniana", "role": "Principal Sponsor"}, {"id": 13, "name": "Brenda Palma", "role": null}, {"id": 14, "name": "Ava Delatina", "role": null}, {"id": 15, "name": "Oliva Umahag", "role": null}, {"id": 16, "name": "Crystal Simon Delatina", "role": null}, {"id": 17, "name": "Sinforoso Subong, Jr.", "role": null}, {"id": 18, "name": "Sandra Garvilles", "role": null}, {"id": 19, "name": "Doyen Jope Garnica", "role": null}, {"id": 20, "name": "John Aryan S. Ferraro", "role": null}, {"id": 21, "name": "Loyda S. Subong", "role": null}, {"id": 22, "name": "Jun Dominguez", "role": "Principal Sponsor"}, {"id": 23, "name": "Kimchie Marchalleck", "role": null}, {"id": 24, "name": "Atty. Erika Jean Quiñones", "role": "Bible"}, {"id": 25, "name": "John Tan", "role": "Coins"}, {"id": 26, "name": "Dr. Julia Therese Cambongga", "role": "Cord"}, {"id": 27, "name": "Eric Jayme", "role": "Cord"}, {"id": 28, "name": "Zimri Mico Cambongga", "role": null}, {"id": 29, "name": "Gabrielle Bea Cambongga", "role": "Candle"}, {"id": 30, "name": "Charmaine Castellano", "role": "Candle"}, {"id": 31, "name": "Royer Quiñones", "role": null}, {"id": 32, "name": "Queenie Quiñones", "role": null}, {"id": 33, "name": "Mark Jures Alcoran", "role": null}, {"id": 34, "name": "Dr. Clara Nemia C. Antipala", "role": "Principal Sponsor"}, {"id": 35, "name": "Mia Feisah Tayco", "role": null}, {"id": 36, "name": "Maria Concepcion Oriel", "role": null}, {"id": 37, "name": "Jahan Mari O. Salon", "role": null}, {"id": 38, "name": "Joshua Salon", "role": null}, {"id": 39, "name": "Rebelander Basilan", "role": null}, {"id": 40, "name": "Christell Basilan", "role": null}, {"id": 41, "name": "Marianne Van Elst-Sijtsma", "role": "Principal Sponsor"}, {"id": 42, "name": "Wilhelm Van Elst-Sijtsma", "role": "Principal Sponsor"}, {"id": 43, "name": "Annabel Colina", "role": null}, {"id": 44, "name": "Cris Subaan", "role": null}, {"id": 45, "name": "Ging Subaan", "role": null}, {"id": 46, "name": "Fr. Romel Rosil", "role": null}, {"id": 47, "name": "Kristiene Fernandez", "role": "Ring Bearer"}, {"id": 48, "name": "Anton Yulin", "role": null}, {"id": 49, "name": "Crisvily Sullano", "role": null}, {"id": 50, "name": "Chelsea Taasin", "role": null}, {"id": 51, "name": "Kenneth Pino", "role": null}, {"id": 52, "name": "Alvin Patrimonio", "role": null}, {"id": 53, "name": "Precious Lastimado", "role": null}, {"id": 54, "name": "Genevieve Sipe", "role": null}, {"id": 55, "name": "Kate Rodriguez", "role": null}, {"id": 56, "name": "Gwen Togonon", "role": null}, {"id": 57, "name": "Nicolas Matugas", "role": null}, {"id": 58, "name": "Lucrecia Matugas", "role": null}, {"id": 59, "name": "Gertrudes Omboy", "role": null}, {"id": 60, "name": "Angel Cherish Matugas", "role": null}, {"id": 61, "name": "John Ellix Matugas", "role": null}, {"id": 62, "name": "Aizel Rose Quirante", "role": "Veil"}, {"id": 63, "name": "Carlo Antonio Chan", "role": "Veil"}, {"id": 64, "name": "Jalen Rose Quirante", "role": null}, {"id": 65, "name": "Lucilla Omboy", "role": null}, {"id": 66, "name": "Emerson San Juan", "role": null}, {"id": 67, "name": "Jade Malbarosa", "role": "Principal Sponsor"}, {"id": 68, "name": "Cassey Malbarosa", "role": null}, {"id": 69, "name": "Mazey Malbarosa", "role": null}, {"id": 70, "name": "Ritzchel Leigh Marave", "role": null}, {"id": 71, "name": "John Roiklen Calang", "role": "Best Man"}, {"id": 72, "name": "Gleano Calang", "role": "Principal Sponsor"}, {"id": 73, "name": "Juana Calang", "role": "Principal Sponsor"}, {"id": 74, "name": "Rey Arthur Regis", "role": null}, {"id": 75, "name": "Mariel Bacatan", "role": null}, {"id": 76, "name": "Vicente Jan Hermoso", "role": null}, {"id": 77, "name": "Christine Patron", "role": null}, {"id": 78, "name": "Jhon Vandolph Maratas", "role": null}, {"id": 79, "name": "Junree Sotto", "role": null}, {"id": 80, "name": "Shanaiah Sotto", "role": null}, {"id": 81, "name": "Abraham Bereso", "role": null}, {"id": 82, "name": "Debbie Kaye Marie Caballero", "role": null}, {"id": 83, "name": "Blaise Pradera", "role": null}, {"id": 84, "name": "Gerion Jay Babuyo", "role": "Principal Sponsor"}, {"id": 85, "name": "Veronica Joy Budke", "role": "Principal Sponsor"}, {"id": 86, "name": "Jand Rick Villacarlos", "role": "Principal Sponsor"}, {"id": 87, "name": "Riza Mae Capus", "role": null}, {"id": 88, "name": "JC Achaelson Vertucio", "role": null}, {"id": 89, "name": "Vincent Fernandez", "role": null}, {"id": 90, "name": "Rachel Ann Delfino", "role": null}, {"id": 91, "name": "James Reden Dionson", "role": null}, {"id": 92, "name": "Cricelle Dionson", "role": null}, {"id": 93, "name": "Franz Josef Ceniza", "role": null}, {"id": 94, "name": "Donnabelle Ceniza", "role": null}, {"id": 95, "name": "Jilbert Magbanua", "role": null}, {"id": 96, "name": "Jerod Hoffman", "role": "Principal Sponsor"}, {"id": 97, "name": "Ciriaco Omboy", "role": null}, {"id": 98, "name": "Calixto Omboy", "role": null}, {"id": 99, "name": "Stella Marris Pueblos", "role": "Principal Sponsor"}, {"id": 100, "name": "Rey Pueblos", "role": "Principal Sponsor"}];
+
+  var FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSfJB8AESZ3k7SvpAKbgE3Q7md-4EOzdhUDPJfBXPnyyx9Ha6Q/formResponse";
+  var ENTRY_NAME = "entry.851300627";
+  var ENTRY_NOTE = "entry.1746919941";
+  var ENTRY_RSVP = "entry.496405368";
+  var ENTRY_TRANSPORT = "entry.299651406";
+
+  var app = document.getElementById('app');
+  var state = {
+    screen: 'search',
+    query: '',
+    selectedGuest: null,
+    rsvpChoice: null,
+    transportChoice: null,
+    noteText: '',
+    checking: false,
+    submitting: false,
+    priorAnswer: null
+  };
+
+  function esc(s){
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  function normalize(s){
+    return (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  }
+
+  function matchesQuery(name, query){
+    var q = normalize(query);
+    if (q.length < 2) return false;
+    var full = normalize(name);
+    if (full.indexOf(q) !== -1) return true;
+    var words = name.split(/\s+/);
+    for (var i = 0; i < words.length; i++){
+      if (normalize(words[i]).indexOf(q) === 0) return true;
+    }
+    return false;
+  }
+
+  function render(){
+    if (state.screen === 'search') return renderSearch();
+    if (state.screen === 'details') return renderDetails();
+    if (state.screen === 'already') return renderAlready();
+    if (state.screen === 'thankyou') return renderThankYou();
+  }
+
+  function renderSearch(){
+    var results = '';
+    var showResults = normalize(state.query).length >= 2;
+    var matches = [];
+    if (showResults){
+      matches = GUESTS.filter(function(g){ return matchesQuery(g.name, state.query); });
+    }
+
+    var resultsHtml = '';
+    if (showResults){
+      if (matches.length === 0){
+        resultsHtml = '<div class="empty-note">We couldn\'t find that name on our guest list.<br>Please check the spelling, or reach out to Marianne &amp; Ray directly.</div>';
+      } else {
+        resultsHtml = '<div class="results">' + matches.map(function(g){
+          var tag = g.role ? '<span class="tag">' + esc(g.role) + '</span>' : '';
+          return '<div class="result-item" data-id="' + g.id + '"><span>' + esc(g.name) + '</span>' + tag + '</div>';
+        }).join('') + '</div>';
+      }
+    }
+
+    app.innerHTML =
+      '<div class="ornament">&#10022;</div>' +
+      '<div class="eyebrow">You&rsquo;re Invited</div>' +
+      '<div class="eyebrow" style="margin-bottom:38px;">To The</div>' +
+      '<div class="script-heading small">Wedding of</div>' +
+      '<div class="script-heading big">Marianne &amp; Ray</div>' +
+      '<div class="divider"></div>' +
+      '<div class="search-wrap">' +
+        '<div class="search-label">FIND YOUR NAME TO VIEW YOUR INVITATION</div>' +
+        '<input type="text" id="searchInput" placeholder="Start typing your name..." autocomplete="off" value="' + esc(state.query) + '">' +
+        resultsHtml +
+      '</div>';
+
+    var input = document.getElementById('searchInput');
+    input.focus();
+    input.setSelectionRange(input.value.length, input.value.length);
+    input.addEventListener('input', function(e){
+      state.query = e.target.value;
+      render();
+    });
+
+    var items = app.querySelectorAll('.result-item');
+    items.forEach(function(el){
+      el.addEventListener('click', function(){
+        var id = parseInt(el.getAttribute('data-id'), 10);
+        selectGuest(id);
+      });
+    });
+  }
+
+  function selectGuest(id){
+    var guest = GUESTS.filter(function(g){ return g.id === id; })[0];
+    if (!guest) return;
+    state.selectedGuest = guest;
+    state.rsvpChoice = null;
+    state.transportChoice = null;
+    state.noteText = '';
+
+    var existing = getStoredResponse(guest.id);
+    if (existing){
+      state.priorAnswer = existing;
+      state.screen = 'already';
+    } else {
+      state.screen = 'details';
+    }
+    render();
+  }
+
+  function getStoredResponse(guestId){
+    try{
+      var raw = localStorage.getItem('rsvp_' + guestId);
+      return raw ? JSON.parse(raw) : null;
+    } catch(e){
+      return null;
+    }
+  }
+
+  function storeResponse(guestId, payload){
+    try{
+      localStorage.setItem('rsvp_' + guestId, JSON.stringify(payload));
+    } catch(e){
+      /* storage unavailable — submission still went to the Google Form */
+    }
+  }
+
+  function renderDetails(){
+    var guest = state.selectedGuest;
+    var roleHtml = '';
+    if (guest.role){
+      var cls = guest.role === 'Principal Sponsor' ? 'role ps' : 'role';
+      var introText = guest.role === 'Principal Sponsor'
+        ? 'You are one of our'
+        : 'You have been chosen as our';
+      roleHtml =
+        '<div class="role-intro">' + esc(introText) + '</div>' +
+        '<div class="' + cls + '">' + esc(guest.role) + '</div>';
+    }
+
+    app.innerHTML =
+      '<div class="greeting">' +
+        '<div class="dear">Dear ' + esc(guest.name) + '</div>' +
+        roleHtml +
+        '<div class="invite-line">We joyfully invite you to witness and celebrate the union of two hearts becoming one.</div>' +
+      '</div>' +
+      '<div class="divider"></div>' +
+      '<div class="details">' +
+        '<div class="row"><span class="label">Date</span><span class="value">Saturday, January 23, 2027</span></div>' +
+        '<div class="row"><span class="label">Ceremony</span><span class="value">2:00 PM<br>Archdiocesan Shrine of<br>St. Th&eacute;r&egrave;se of the Child Jesus</span></div>' +
+        '<div class="row"><span class="label">Reception</span><span class="value">4:00 PM<br>Chateau de Busay Inn &amp; Restaurant<br>(Lower Garden)</span></div>' +
+        '<div class="row"><span class="label">Attire</span><span class="value">Garden Formal</span></div>' +
+      '</div>' +
+
+      '<div class="section-title">Will You Be Joining Us?</div>' +
+      '<div class="rsvp-choices">' +
+        '<div class="choice-box' + (state.rsvpChoice === 'accept' ? ' selected' : '') + '" data-choice="accept">Joyfully<br>Accepts</div>' +
+        '<div class="choice-box' + (state.rsvpChoice === 'decline' ? ' selected' : '') + '" data-choice="decline">Regretfully<br>Declines</div>' +
+      '</div>' +
+      '<div class="error-text" id="rsvpError">Please select whether you will be joining us.</div>' +
+
+      '<div class="section-title">Transportation <span style="text-transform:none;font-weight:500;">(optional)</span></div>' +
+      '<div class="transport-note">Shuttle service runs from the church to the reception venue and back only.</div>' +
+      '<div class="transport-choices">' +
+        '<div class="transport-box' + (state.transportChoice === 'avail' ? ' selected' : '') + '" data-transport="avail"><span class="radio-dot"></span><span>I will avail the transportation service.</span></div>' +
+        '<div class="transport-box' + (state.transportChoice === 'decline' ? ' selected' : '') + '" data-transport="decline"><span class="radio-dot"></span><span>I will not avail the transportation service.</span></div>' +
+      '</div>' +
+
+      '<div class="note-section">' +
+        '<div class="section-title">Leave a Note to the Newlyweds</div>' +
+        '<textarea id="noteInput" placeholder="Write your well wishes here... (optional)">' + esc(state.noteText) + '</textarea>' +
+      '</div>' +
+
+      '<button class="submit-btn" id="submitBtn">Submit RSVP</button>' +
+      '<div class="back-link" id="backLink">&larr; Search a different name</div>';
+
+    app.querySelectorAll('.choice-box').forEach(function(el){
+      el.addEventListener('click', function(){
+        state.rsvpChoice = el.getAttribute('data-choice');
+        render();
+      });
+    });
+
+    app.querySelectorAll('.transport-box').forEach(function(el){
+      el.addEventListener('click', function(){
+        var val = el.getAttribute('data-transport');
+        state.transportChoice = (state.transportChoice === val) ? null : val;
+        render();
+      });
+    });
+
+    var noteInput = document.getElementById('noteInput');
+    noteInput.addEventListener('input', function(e){
+      state.noteText = e.target.value;
+    });
+
+    document.getElementById('backLink').addEventListener('click', function(){
+      state.screen = 'search';
+      state.selectedGuest = null;
+      state.query = '';
+      render();
+    });
+
+    document.getElementById('submitBtn').addEventListener('click', handleSubmit);
+  }
+
+  function handleSubmit(){
+    if (!state.rsvpChoice){
+      document.getElementById('rsvpError').style.display = 'block';
+      return;
+    }
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    var guest = state.selectedGuest;
+    var rsvpText = state.rsvpChoice === 'accept' ? 'Joyfully Accepts' : 'Regretfully Declines';
+    var transportText = state.transportChoice === 'avail'
+      ? 'I will avail the transportation service'
+      : (state.transportChoice === 'decline' ? 'I will not avail the transportation service' : '');
+
+    var payload = {
+      name: guest.name,
+      role: guest.role,
+      rsvp: rsvpText,
+      transport: transportText,
+      note: state.noteText,
+      submittedAt: new Date().toISOString()
+    };
+
+    submitToGoogleForm(guest.name, rsvpText, transportText, state.noteText);
+    storeResponse(guest.id, payload);
+
+    state.priorAnswer = payload;
+    state.screen = 'thankyou';
+    render();
+  }
+
+  function submitToGoogleForm(name, rsvp, transport, note){
+    var body = new URLSearchParams();
+    body.append(ENTRY_NAME, name);
+    body.append(ENTRY_RSVP, rsvp);
+    body.append(ENTRY_TRANSPORT, transport);
+    body.append(ENTRY_NOTE, note);
+
+    fetch(FORM_ACTION, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body.toString()
+    }).catch(function(){ /* no-cors: errors are expected to be opaque */ });
+  }
+
+  function renderAlready(){
+    var guest = state.selectedGuest;
+    var ans = state.priorAnswer;
+    app.innerHTML =
+      '<div class="center-screen">' +
+        '<div class="icon">&#10022;</div>' +
+        '<h2>You&rsquo;ve Already Responded</h2>' +
+        '<p>Dear ' + esc(guest.name) + ', we&rsquo;ve already received your RSVP from this device. Responses cannot be edited once submitted.</p>' +
+        '<div class="prev-answer">' + esc(ans.rsvp) + '</div>' +
+      '</div>' +
+      '<div class="back-link" id="backLink2">&larr; Search a different name</div>';
+
+    document.getElementById('backLink2').addEventListener('click', function(){
+      state.screen = 'search';
+      state.selectedGuest = null;
+      state.query = '';
+      render();
+    });
+  }
+
+  function renderThankYou(){
+    var guest = state.selectedGuest;
+    var accepted = state.rsvpChoice === 'accept';
+    var heading = accepted ? 'See You There!' : 'You Will Be Missed';
+    var msg = accepted
+      ? 'Thank you, ' + esc(guest.name) + '. Marianne &amp; Ray are overjoyed that you&rsquo;ll be celebrating with them on their special day.'
+      : 'Thank you for letting us know, ' + esc(guest.name) + '. You will be dearly missed, and Marianne &amp; Ray appreciate your well wishes from afar.';
+
+    app.innerHTML =
+      '<div class="center-screen">' +
+        '<div class="icon">&#10022;</div>' +
+        '<h2>' + heading + '</h2>' +
+        '<p>' + msg + '</p>' +
+        '<div class="prev-answer">RSVP Recorded</div>' +
+      '</div>';
+  }
+
+  render();
+})();
+</script>
+
+</body>
+</html>
